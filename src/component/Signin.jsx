@@ -3,7 +3,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 
 
-function Signin() {
+function Signin({ setCookie }) {
     const route = useNavigate()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -12,6 +12,7 @@ function Signin() {
         e.preventDefault();
         if (email === '' || password === '') return alert("Fill the Form Properly")
         console.log({ email, password });
+        setCookie("user", true)
         route("/list-user")
         return
     }

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import data from './users.json';
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 
-const ListUser = () => {
+const ListUser = ({ removeCookie }) => {
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [filteredUsers, setFilteredUsers] = useState(data);
 
@@ -20,15 +20,19 @@ const ListUser = () => {
     } else {
       setFilteredUsers(data);
     }
-
   };
-
+  const handleDelete = (id) => {
+    const deleted = filteredUsers.filter(user => {
+      return user.id !== id
+    })
+    setFilteredUsers(deleted);
+  }
 
   return (
     <Container fluid>
       <div className="d-flex justify-content-between">
         <a href="#">Download Json file</a>
-        <p>Logout</p>
+        <p onClick={() => removeCookie("user")}>Logout</p>
       </div>
 
       <div className="status">
@@ -65,7 +69,9 @@ const ListUser = () => {
                 <td>{user?.gender}</td>
                 <td>{user?.color}</td>
                 <td>{user?.Status ? "Active" : "Inactive"}</td>
-                <td></td>
+                <td>
+                  <Button onClick={() => handleDelete(user.id)}>Delete</Button>
+                </td>
               </tr>
             ))}
           </tbody>
