@@ -1,9 +1,9 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button, Col, Container, Form, Row } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 
 
-function Signin({ setCookie }) {
+function Signin({ cookies, setCookie }) {
     const route = useNavigate()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -16,6 +16,14 @@ function Signin({ setCookie }) {
         route("/list-user")
         return
     }
+
+    useEffect(() => {
+        if (cookies) {
+            route("/list-user")
+            return
+        }
+    }, [cookies, route])
+
     return (
         <Container fluid className="d-flex flex-column justify-content-center align-items-center" style={{ height: "100vh" }}>
             <Row>

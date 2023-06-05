@@ -11,7 +11,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Signin setCookie={setCookie} />} />
+        <Route exact path="/" element={<Signin cookies={cookies} setCookie={setCookie} />} />
         <Route exact path="/list-user" element={<ListUser removeCookie={removeCookie} />} />
       </Routes>
     </Router>

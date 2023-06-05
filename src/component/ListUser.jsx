@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import data from './users.json';
 import { Button, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const ListUser = ({ removeCookie }) => {
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [filteredUsers, setFilteredUsers] = useState(data);
+  const route = useNavigate()
 
   const handleStatusChange = (e) => {
     const selectedValue = e.target.value;
@@ -27,12 +29,17 @@ const ListUser = ({ removeCookie }) => {
     })
     setFilteredUsers(deleted);
   }
+  const handleLogout = () => {
+    removeCookie("user");
+    route("/")
+    return
+  }
 
   return (
-    <Container fluid>
+    <Container fluid className="py-4">
       <div className="d-flex justify-content-between">
         <a href="#">Download Json file</a>
-        <p onClick={() => removeCookie("user")}>Logout</p>
+        <Button variant="light" onClick={handleLogout}>Logout</Button>
       </div>
 
       <div className="status">
